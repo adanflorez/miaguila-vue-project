@@ -12,7 +12,6 @@ const routes = [
   },
   {
     path: '',
-    name: 'Main',
     component: () => import('../views/pages/Main.vue'),
     children: [
       {
