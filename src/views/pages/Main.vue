@@ -6,11 +6,11 @@
       <sidebar-menu
         :menu="menu"
         :collapsed="collapsed"
-        :show-one-child="true"
         @toggle-collapse="onToggleCollapse"
         @item-click="onItemClick"
         :width="'255px'"
         :disableHover="true"
+        :hideToggle="true"
       >
         <span slot="toggle-icon">
           <i class="fas fa-bars"></i>
@@ -58,12 +58,15 @@ export default {
           href: '/usuarios',
           title: 'Usuarios',
           icon: 'fas fa-users',
-        }
-        ,
+        },
         {
           href: '/tareas',
           title: 'Tareas',
           icon: 'fas fa-clipboard-list',
+        },
+        {
+          title: 'Salir',
+          icon: 'fas fa-sign-out-alt',
         }
       ]
     };
@@ -78,7 +81,7 @@ export default {
       this.collapsed = collapsed;
     },
     onItemClick(event, item, node) {
-      console.log('onItemClick');
+      console.log('onItemClick', item);
       // console.log(event)
       // console.log(item)
       // console.log(node)

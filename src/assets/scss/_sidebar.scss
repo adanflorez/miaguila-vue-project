@@ -29,12 +29,14 @@
     .vsm--footer {
       padding: 10px !important;
       transition: 0.3s ease;
-    }
 
-    .vsm--header {
       span {
         display: none;
       }
+    }
+
+    .vsm--footer {
+      padding: 15px !important;
     }
   }
 
