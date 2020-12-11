@@ -24,6 +24,11 @@ const routes = [
         name: "Home",
         component: () => import("../views/pages/subpages/Home.vue"),
       },
+      {
+        path: "/usuarios",
+        name: "Users",
+        component: () => import("../views/pages/subpages/Users.vue"),
+      }
     ]
   }
 ]
