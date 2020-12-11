@@ -16,6 +16,10 @@ import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 Vue.use(VueSidebarMenu)
 
+// Lodash
+import _ from "lodash";
+Vue.prototype._ = _;
+
 Vue.config.productionTip = false
 
 new Vue({
