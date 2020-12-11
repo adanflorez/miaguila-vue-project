@@ -4,8 +4,16 @@
       <h4>{{ path }}</h4>
       <div class="d-flex align-items-center">
         <i class="fas fa-search mr-3 cursor-pointer"></i>
-        <i class="fas fa-bell mr-3 cursor-pointer"></i>
-        <p class="text-sm mr-3 font-weight-600">{{ userEmail }}</p>
+        <div class="mr-3 position-relative" @click="$router.push('/tareas')">
+          <i class="fas fa-bell cursor-pointer"></i>
+          <div
+            class="position-absolute d-flex justify-content-center align-items-center bg-primary notification"
+            style=""
+          >
+            {{ $store.state.total_tasks }}
+          </div>
+        </div>
+        <p class="d-none d-md-flex text-sm mr-3 font-weight-600">{{ userEmail }}</p>
         <div
           class="pic-profile d-flex justify-content-center align-items-center cursor-pointer"
         >
@@ -37,5 +45,16 @@ export default {
 <style lang="scss">
 #toolbar {
   height: 90px;
+
+  .notification {
+    right: 0;
+    top: 0;
+    font-size: 9px;
+    width: 10px;
+    height: 10px;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 600;
+  }
 }
 </style>
