@@ -6,8 +6,19 @@
           <div class="row no-gutters">
             <div class="col-md-12">
               <div class="card-body">
+                <div
+                  v-if="error_login"
+                  class="alert alert-danger d-flex justify-content-between align-items-center"
+                  role="alert"
+                >
+                  <span> Credenciales incorrectas </span>
+                  <i
+                    class="far fa-times-circle text-danger cursor-pointer"
+                    @click="error_login = false"
+                  ></i>
+                </div>
                 <p class="login-card-description text-center">Inicia sesión</p>
-                <form action="#!">
+                <form>
                   <div class="form-group">
                     <label for="email" class="sr-only">Correo</label>
                     <input
@@ -19,9 +30,11 @@
                       placeholder="Correo"
                       v-model="user.email"
                     />
-                    <small class="text-danger text-xs" v-show="errors.has('email')">{{
-                      errors.first("email")
-                    }}</small>
+                    <small
+                      class="text-danger text-xs"
+                      v-show="errors.has('email')"
+                      >{{ errors.first("email") }}</small
+                    >
                   </div>
                   <div class="form-group mb-4">
                     <label for="password" class="sr-only">Contraseña</label>
@@ -37,7 +50,9 @@
                       placeholder="***********"
                       v-model="user.password"
                     />
-                    <small class="text-danger text-xs" v-show="errors.has('password')"
+                    <small
+                      class="text-danger text-xs"
+                      v-show="errors.has('password')"
                       >{{ errors.first("password") }}
                       <br />
                     </small>
@@ -84,11 +99,12 @@ export default {
   data() {
     return {
       user: {
-        email: '',
-        password: ''
+        email: 'demo@miaguila.com',
+        password: 'Dm123456'
       },
       password_pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z].{7,}/,
-      loading: false
+      loading: false,
+      error_login: false
     };
   },
   computed: {
@@ -101,8 +117,22 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
-        this.$router.push('/inicio');
+        const payload = {
+          email: this.user.email,
+          password: this.user.password
+        };
+        this.$store
+          .dispatch("auth/login", payload)
+          .then(() => {
+            console.log(payload);
+            this.$router.push('/inicio');
+          })
+          .catch(error => {
+            console.error(error);
+            this.error_login = true;
+          });
       }, 3000);
+
     }
   }
 };
