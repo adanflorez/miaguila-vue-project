@@ -9,32 +9,49 @@
                 <p class="login-card-description text-center">Inicia sesión</p>
                 <form action="#!">
                   <div class="form-group">
-                    <label for="email" class="sr-only">Email</label>
+                    <label for="email" class="sr-only">Correo</label>
                     <input
+                      v-validate="'required'"
+                      data-vv-validate-on="blur"
                       type="email"
                       name="email"
-                      id="email"
                       class="form-control"
-                      placeholder="Email address"
+                      placeholder="Correo"
+                      v-model="user.email"
                     />
+                    <small class="text-danger" v-show="errors.has('email')">{{
+                      errors.first("email")
+                    }}</small>
                   </div>
                   <div class="form-group mb-4">
-                    <label for="password" class="sr-only">Password</label>
+                    <label for="password" class="sr-only">Contraseña</label>
                     <input
+                      v-validate="{
+                        required: true,
+                        regex: password_pattern,
+                      }"
                       type="password"
                       name="password"
-                      id="password"
                       class="form-control"
                       placeholder="***********"
+                      v-model="user.password"
                     />
+                    <small
+                      class="text-danger"
+                      v-show="errors.has('password')"
+                      >{{ errors.first("password") }}</small
+                    >
                   </div>
-                  <input
+                  <button
+                    :disabled="!validateForm"
                     name="login"
                     id="login"
                     class="btn btn-block login-btn mb-4"
+                    @click="login"
                     type="button"
-                    value="Login"
-                  />
+                  >
+                    Entrar
+                  </button>
                 </form>
                 <a href="#!" class="forgot-password-link"
                   >¿Olvidaste tu contraseña?</a
@@ -55,7 +72,26 @@
 <script>
 
 export default {
-  name: 'login-form'
+  name: 'login-form',
+  data() {
+    return {
+      user: {
+        email: '',
+        password: ''
+      },
+      password_pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z].{7,}/
+    };
+  },
+  computed: {
+    validateForm() {
+      return !this.errors.any() && this.user.email != "" && this.user.password != "";
+    }
+  },
+  methods: {
+    login() {
+      this.$router.push('/inicio');
+    }
+  }
 };
 </script>
 
@@ -85,11 +121,10 @@ export default {
     }
 
     form {
-      max-width: 326px;
+      width: 326px;
     }
 
     .form-control {
-      margin-bottom: 20px;
       min-height: 45px;
       font-size: 0.8125rem;
       line-height: 15;
@@ -105,12 +140,6 @@ export default {
       line-height: 20px;
       color: #fff;
       margin-bottom: 24px;
-
-      &:hover {
-        border: 1px solid $primary;
-        background-color: transparent;
-        color: $primary;
-      }
     }
 
     .forgot-password-link {
