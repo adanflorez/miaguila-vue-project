@@ -1,1 +1,7 @@
-@import './variables.scss';
+@import './variables';
+@import './typography';
+
+body {
+  height: 100vh;
+  font-family: $font-family-sans-serif !important;
+}
