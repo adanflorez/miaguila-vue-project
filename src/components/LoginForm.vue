@@ -28,6 +28,7 @@
                     <input
                       v-validate="{
                         required: true,
+                        min: 7,
                         regex: password_pattern,
                       }"
                       type="password"
@@ -36,10 +37,14 @@
                       placeholder="***********"
                       v-model="user.password"
                     />
-                    <small
-                      class="text-danger"
-                      v-show="errors.has('password')"
-                      >{{ errors.first("password") }}</small
+                    <small class="text-danger" v-show="errors.has('password')"
+                      >{{ errors.first("password") }}
+                      <br />
+                    </small>
+
+                    <small class="text-dark"
+                      >La contraseña debe tener mínimo 7 caracteres, al menos un
+                      número y una letra mayúscula.</small
                     >
                   </div>
                   <button
