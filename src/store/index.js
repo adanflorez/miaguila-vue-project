@@ -4,7 +4,7 @@ Vue.use(Vuex);
 
 import moduleAuth from "./auth/moduleAuth.js";
 
-const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {};
+const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || null;
 
 const getUserInfo = () => {
   return userInfoLocalStorage;
@@ -12,7 +12,8 @@ const getUserInfo = () => {
 
 export default new Vuex.Store({
   state: {
-    AppActiveUser: getUserInfo(),
+    AppActiveUser: getUserInfo() || {},
+    accesToken: '' // necessary to verify a valid user
   },
   mutations: {
     // Updates user info in state and localstorage
@@ -33,6 +34,11 @@ export default new Vuex.Store({
       // Store data in localStorage
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
     },
+    UPDATE_USER_ACCESS_TOKEN(state, payload){
+      state.accesToken = payload
+      // JUST IN CASE: Access token parameter for valid requests
+      // axios.defaults.headers.common["Authorization"] = "Bearer " + state.accessToken;
+    }
   },
   actions: {},
   modules: {
