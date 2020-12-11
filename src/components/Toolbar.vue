@@ -7,9 +7,9 @@
         <i class="fas fa-bell mr-3 cursor-pointer"></i>
         <p class="text-sm mr-3 font-weight-600">{{ userEmail }}</p>
         <div
-          class="pic-profile d-flex justify-content-center align-items-center"
+          class="pic-profile d-flex justify-content-center align-items-center cursor-pointer"
         >
-          <i class="fas fa-user cursor-pointer"></i>
+          <i class="fas fa-user"></i>
         </div>
       </div>
     </div>
