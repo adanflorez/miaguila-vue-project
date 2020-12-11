@@ -1,5 +1,8 @@
 <template>
-  <div id="main" :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]">
+  <div
+    id="main"
+    :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]"
+  >
     <toolbar />
     <div class="p-4 h-100">
       <router-view />
@@ -16,8 +19,6 @@
 </template>
 <script>
 import Toolbar from '../../components/Toolbar.vue';
-import menu from '@/sidebarMenu';
-
 export default {
   components: {
     Toolbar
@@ -27,7 +28,29 @@ export default {
     return {
       collapsed: false,
       isOnMobile: false,
-      menu: menu
+      menu: [
+        {
+          header: true,
+          title: 'Mi Aguila',
+          hiddenOnCollapse: true
+        },
+        {
+          href: '/inicio',
+          title: 'Inicio',
+          icon: 'fas fa-home'
+        },
+        {
+          href: '/usuarios',
+          title: 'Usuarios',
+          icon: 'fas fa-users',
+        }
+        ,
+        {
+          href: '/tareas',
+          title: 'Tareas',
+          icon: 'fas fa-clipboard-list',
+        }
+      ]
     };
   },
   mounted() {
