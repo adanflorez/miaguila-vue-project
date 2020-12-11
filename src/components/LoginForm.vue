@@ -19,7 +19,7 @@
                       placeholder="Correo"
                       v-model="user.email"
                     />
-                    <small class="text-danger" v-show="errors.has('email')">{{
+                    <small class="text-danger text-xs" v-show="errors.has('email')">{{
                       errors.first("email")
                     }}</small>
                   </div>
@@ -37,12 +37,12 @@
                       placeholder="***********"
                       v-model="user.password"
                     />
-                    <small class="text-danger" v-show="errors.has('password')"
+                    <small class="text-danger text-xs" v-show="errors.has('password')"
                       >{{ errors.first("password") }}
                       <br />
                     </small>
 
-                    <small class="text-dark"
+                    <small class="text-dark text-xs"
                       >La contraseña debe tener mínimo 7 caracteres, al menos un
                       número y una letra mayúscula.</small
                     >
@@ -55,7 +55,10 @@
                     @click="login"
                     type="button"
                   >
-                    Entrar
+                    <span v-if="!loading">Entrar</span>
+                    <div v-if="loading" class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                   </button>
                 </form>
                 <a href="#!" class="forgot-password-link"
@@ -84,7 +87,8 @@ export default {
         email: '',
         password: ''
       },
-      password_pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z].{7,}/
+      password_pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z].{7,}/,
+      loading: false
     };
   },
   computed: {
@@ -94,7 +98,11 @@ export default {
   },
   methods: {
     login() {
-      this.$router.push('/inicio');
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+        this.$router.push('/inicio');
+      }, 3000);
     }
   }
 };
