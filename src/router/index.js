@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '../views/Login.vue';
+import auth from '@/auth/authService';
 
 Vue.use(VueRouter);
 
 const routes = [
+
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: Login,
   },
@@ -22,16 +24,25 @@ const routes = [
         path: '/inicio',
         name: 'Home',
         component: () => import('../views/pages/subpages/Home.vue'),
+        meta: {
+          authRequired: true,
+        },
       },
       {
         path: '/usuarios',
         name: 'Users',
         component: () => import('../views/pages/subpages/Users.vue'),
+        meta: {
+          authRequired: true,
+        },
       },
       {
         path: '/tareas',
         name: 'Tasks',
         component: () => import('../views/pages/subpages/Tasks.vue'),
+        meta: {
+          authRequired: true,
+        },
       },
     ],
   },
@@ -41,6 +52,25 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+const routes_after_login = [
+  '/login',
+];
+
+router.beforeEach((to, from, next) => {
+  // If auth required, check login. If login fails redirect to login page
+  if (to.meta.authRequired) {
+    if (!auth.isAuthenticated()) {
+      router.push({ path: '/login' });
+    }
+  } else {
+    if (auth.isAuthenticated() && routes_after_login.includes(to.path)) {
+      router.push({ path: '/login', query: { to: to.path } });
+    }
+  }
+
+  return next();
 });
 
 export default router;
