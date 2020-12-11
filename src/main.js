@@ -11,6 +11,11 @@ Vue.component("ValidationProvider", ValidationProvider);
 Vue.use(VeeValidate);
 Validator.localize("es", es);
 
+// VueSidebarMenu
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+Vue.use(VueSidebarMenu)
+
 Vue.config.productionTip = false
 
 new Vue({
