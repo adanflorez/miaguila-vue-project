@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="main"
-    :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]"
-  >
+  <div id="main" :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]">
     <toolbar />
     <div class="p-4 h-100">
       <router-view />
@@ -13,7 +10,30 @@
         @toggle-collapse="onToggleCollapse"
         @item-click="onItemClick"
         :width="'255px'"
-      />
+        :disableHover="true"
+      >
+        <span slot="toggle-icon">
+          <i class="fas fa-bars"></i>
+        </span>
+        <span slot="header">
+          <div class="vsm--header">
+            <div>
+              <img
+                class="rounded-circle mr-2"
+                src="@/assets/img/logo.svg"
+                alt=""
+              />
+              <span>Mi águila</span>
+            </div>
+          </div>
+        </span>
+        <span slot="footer">
+          <div class="vsm--footer cursor-pointer">
+            <i class="vsm--icon fas fa-cog" aria-hidden="true"> </i>
+            <span>Configuración</span>
+          </div>
+        </span>
+      </sidebar-menu>
     </div>
   </div>
 </template>
@@ -29,11 +49,6 @@ export default {
       collapsed: false,
       isOnMobile: false,
       menu: [
-        {
-          header: true,
-          title: 'Mi Aguila',
-          hiddenOnCollapse: true
-        },
         {
           href: '/inicio',
           title: 'Inicio',
