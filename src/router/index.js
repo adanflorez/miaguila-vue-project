@@ -66,7 +66,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (auth.isAuthenticated() && routes_after_login.includes(to.path)) {
-      router.push({ path: '/login', query: { to: to.path } });
+      router.push({ path: '/inicio'});
     }
   }
 
