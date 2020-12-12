@@ -26,6 +26,16 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.use(VueSweetalert2);
 
+// IdleVue
+import IdleVue from 'idle-vue';
+const evenStub = new Vue();
+Vue.use(IdleVue, {
+  evebtEmmiter: evenStub,
+  store,
+  idleTime: 240000,
+  startAtIdle: false,
+});
+
 Vue.config.productionTip = false;
 
 new Vue({

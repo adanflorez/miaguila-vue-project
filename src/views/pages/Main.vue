@@ -93,8 +93,7 @@ export default {
           }
         ).then((result) => {
           if (result.isConfirmed) {
-            localStorage.removeItem('userInfo');
-            window.location.href = "/"
+            this.logout();
           }
         });
       }
@@ -106,6 +105,60 @@ export default {
       } else {
         this.isOnMobile = false;
         this.collapsed = false;
+      }
+    },
+    logout() {
+      localStorage.removeItem('userInfo');
+      window.location.href = "/";
+    }
+  },
+  computed: {
+    isIdle() {
+      return this.$store.state.idleVue.isIdle;
+    }
+  },
+  watch: {
+    isIdle() {
+      if (this.isIdle) {
+        let timerInterval;
+        this.$swal({
+          title: 'Tu sesión está proxima a expirar',
+          html: 'Se cerrará en <b></b> segundos.',
+          timer: 60000,
+          timerProgressBar: true,
+          confirmButtonText: 'Seguir navegando',
+          cancelButtonText: 'Cerrar sesión',
+          showCancelButton: true,
+          willOpen: () => {
+            timerInterval = setInterval(() => {
+              const content = this.$swal.getContent();
+              if (content) {
+                const b = content.querySelector('b');
+                if (b) {
+                  let sec = Math.floor((this.$swal.getTimerLeft() % 60000) / 1000).toFixed(0);
+                  b.textContent = sec;
+                }
+              }
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        }).then((result) => {
+          if (result.isDismissed) {
+            switch (result.dismiss) {
+              case 'cancel':
+                this.logout();
+                break;
+              case 'timer':
+                this.logout();
+                break;
+              default:
+                this.logout();
+                break;
+            }
+          }
+        });
       }
     }
   }
