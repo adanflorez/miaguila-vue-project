@@ -124,7 +124,6 @@ export default {
         this.$store
           .dispatch("auth/login", payload)
           .then(() => {
-            console.log(payload);
             this.$router.push('/inicio');
           })
           .catch(error => {

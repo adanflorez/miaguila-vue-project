@@ -99,7 +99,6 @@ export default {
   methods: {
     addTask() {
       if (!this.updating_task) {
-        console.log('aqui');
         this.tasks_list.push(this.new_task);
         this.new_task = '';
       } else {
@@ -126,7 +125,6 @@ export default {
       this.button_text = 'Editar';
     },
     updateTasks() {
-      console.log(this.tasks_list);
       localStorage.setItem('pending-tasks', JSON.stringify(this.tasks_list));
     },
     updateCompletedTasks() {
