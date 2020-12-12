@@ -77,14 +77,27 @@ export default {
   },
   methods: {
     onToggleCollapse(collapsed) {
-      console.log(collapsed);
       this.collapsed = collapsed;
     },
     onItemClick(event, item, node) {
-      console.log('onItemClick', item);
-      // console.log(event)
-      // console.log(item)
-      // console.log(node)
+      if (item.title === 'Salir') {
+        this.$swal(
+          {
+            title: '¿Deseas cerrar sesión?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, cerrar',
+            cancelButtonText: 'Cancelar'
+          }
+        ).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.removeItem('userInfo');
+            window.location.href = "/"
+          }
+        });
+      }
     },
     onResize() {
       if (window.innerWidth <= 991) {
