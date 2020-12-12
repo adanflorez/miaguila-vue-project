@@ -17,8 +17,9 @@ import 'vue-sidebar-menu/dist/vue-sidebar-menu.css';
 Vue.use(VueSidebarMenu);
 
 // Lodash
-import _ from 'lodash';
-Vue.prototype._ = _;
+import VueLodash from 'vue-lodash';
+import lodash from 'lodash';
+Vue.use(VueLodash, { lodash: lodash });
 
 // Sweet alert 2
 import VueSweetalert2 from 'vue-sweetalert2';

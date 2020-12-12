@@ -37,11 +37,18 @@ export default {
       users_list: []
     };
   },
-  created() {
-    mainService.usersList().then(res => {
-      this.users_list = _.orderBy(res.data.users, ['name'], ['asc']);
-    }).catch(err => console.error(err));
+  mounted() {
+    this.getUsersList();
   },
+  methods: {
+    getUsersList() {
+      mainService.usersList()
+        .then(res => {
+          this.users_list = this.lodash.orderBy(res.data.users, ['name'], ['asc']);
+        })
+        .catch(err => console.error(err));
+    }
+  }
 };
 </script>
 
