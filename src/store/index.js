@@ -50,6 +50,11 @@ export default new Vuex.Store({
       commit('UPDATE_TOTAL_TASKS', payload);
     },
   },
+  getters: {
+    getEmail: (state) => {
+      return state.AppActiveUser.email;
+    },
+  },
   modules: {
     auth: moduleAuth,
   },

@@ -10,10 +10,12 @@
             class="position-absolute d-flex justify-content-center align-items-center bg-primary notification"
             style=""
           >
-            {{ $store.state.total_tasks }}
+            {{ totalTasks }}
           </div>
         </div>
-        <p class="d-none d-md-flex text-sm mr-3 font-weight-600">{{ userEmail }}</p>
+        <p class="d-none d-md-flex text-sm mr-3 font-weight-600">
+          {{ userEmail }}
+        </p>
         <div
           class="pic-profile d-flex justify-content-center align-items-center cursor-pointer"
         >
@@ -30,13 +32,14 @@ export default {
   name: 'toolbar',
   computed: {
     path() {
-      let path = this.$route.path.split('/')[1];
-      let capitalized = path.charAt(0).toUpperCase() + path.slice(1);
+      let capitalized = this.$route.path.split('/')[1].charAt(0).toUpperCase() + this.$route.path.split('/')[1].slice(1);
       return capitalized;
     },
     userEmail() {
-      let user = JSON.parse(localStorage.getItem('userInfo'));
-      return user.email;
+      return this.$store.getters.getEmail;
+    },
+    totalTasks() {
+      return this.$store.state.total_tasks;
     }
   }
 };
