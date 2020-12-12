@@ -22,16 +22,17 @@
                   <div class="form-group">
                     <label for="email" class="sr-only">Correo</label>
                     <input
-                      v-validate="'required'"
-                      data-vv-validate-on="blur"
+                      v-validate="'required|email'"
                       type="email"
                       name="email"
                       class="form-control"
                       placeholder="Correo"
                       v-model="user.email"
+                      data-username
+                      required
                     />
                     <small
-                      class="text-danger text-xs"
+                      class="text-danger text-xs vee-error"
                       v-show="errors.has('email')"
                       >{{ errors.first("email") }}</small
                     >
@@ -41,7 +42,7 @@
                     <input
                       v-validate="{
                         required: true,
-                        min: 7,
+                        min: 8,
                         regex: password_pattern,
                       }"
                       type="password"
@@ -49,8 +50,11 @@
                       class="form-control"
                       placeholder="***********"
                       v-model="user.password"
+                      data-password
+                      required
                     />
                     <small
+                      id="vee-error"
                       class="text-danger text-xs"
                       v-show="errors.has('password')"
                       >{{ errors.first("password") }}
@@ -115,22 +119,23 @@ export default {
   methods: {
     login() {
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        const payload = {
-          email: this.user.email,
-          password: this.user.password
-        };
-        this.$store
-          .dispatch("auth/login", payload)
-          .then(() => {
-            this.$router.push('/inicio');
-          })
-          .catch(error => {
-            console.error(error);
-            this.error_login = true;
-          });
-      }, 3000);
+      // setTimeout to simulate a real login
+      //setTimeout(() => {
+      this.loading = false;
+      const payload = {
+        email: this.user.email,
+        password: this.user.password
+      };
+      this.$store
+        .dispatch("auth/login", payload)
+        .then(() => {
+          this.$router.push('/inicio');
+        })
+        .catch(error => {
+          console.error(error);
+          this.error_login = true;
+        });
+      // }, 2000);
 
     }
   }
