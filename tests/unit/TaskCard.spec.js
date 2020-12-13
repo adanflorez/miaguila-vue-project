@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
-import PendingTasks from '@/components/PendingTasks';
+import TaskCard from '@/components/TaskCard';
 
-describe('PendingTasks.vue', () => {
-  const wrapper = mount(PendingTasks);
+describe('TaskCard.vue', () => {
+  const wrapper = mount(TaskCard);
   it('emit task to move a completed', () => {
     wrapper.vm.moveTaskToComplete();
     expect(wrapper.emitted(['task-to-move'])).toBeTruthy();

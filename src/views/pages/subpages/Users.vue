@@ -51,8 +51,7 @@ export default {
       mainService.usersList()
         .then(res => {
           this.users_list = this.lodash.orderBy(res.data.users, ['name'], ['asc']);
-        })
-        .catch(err => console.error(err));
+        }).catch(err => console.error(err));
     }
   }
 };

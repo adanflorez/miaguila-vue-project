@@ -35,7 +35,8 @@
               ></i>
             </div>
           </div>
-          <pending-tasks
+          <task-card
+            :isPending="true"
             :tasks="tasks_list"
             @task-to-move="
               (e) => {
@@ -57,20 +58,18 @@
         <div v-else class="jumbotron">Agrega tareas a la lista...</div>
       </div>
       <div class="col-lg-6">
-        <completed-tasks :tasks="completed_tasks" />
+        <task-card :tasks="completed_tasks" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CompletedTasks from '../../../components/CompletedTasks.vue';
-import PendingTasks from '../../../components/PendingTasks.vue';
+import TaskCard from '../../../components/TaskCard.vue';
 
 export default {
   components: {
-    CompletedTasks,
-    PendingTasks
+    TaskCard
   },
   data() {
     return {
