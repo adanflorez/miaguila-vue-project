@@ -31,13 +31,18 @@
 export default {
   name: 'toolbar',
   computed: {
+    /** 
+     * @returns {String} path with a capital initial 
+     */
     path() {
       let capitalized = this.$route.path.split('/')[1].charAt(0).toUpperCase() + this.$route.path.split('/')[1].slice(1);
       return capitalized;
     },
+    /** @returns {String} login user email */
     userEmail() {
       return this.$store.getters.getEmail;
     },
+    /** @returns {String} the total of pending tasks */
     totalTasks() {
       return this.$store.state.total_tasks;
     }

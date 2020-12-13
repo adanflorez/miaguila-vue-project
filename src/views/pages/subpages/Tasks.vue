@@ -97,6 +97,9 @@ export default {
     };
   },
   methods: {
+    /** 
+     * Add or edit tasks in the list 
+     */
     addTask() {
       if (!this.updating_task) {
         this.tasks_list.push(this.new_task);
@@ -111,26 +114,49 @@ export default {
       this.new_task = '';
 
     },
+    /** Remove tasks from the list
+     * 
+     * @param {Number} index - Task position in array 
+     */
     deleteTask(index) {
       this.tasks_list.splice(index, 1);
     },
+    /** Move task from pending task to completed task
+     * 
+     * @param {Number} index - Task position in array 
+     * @param {String} task - Task
+     */
     moveTaskToComplete(index, task) {
       this.completed_tasks.push(task);
       this.deleteTask(index);
     },
+    /** Prepare the task to edit
+     * 
+     * @param {Number} index - Task position in array 
+     * @param {String} task - Task
+     */
     editTask(index, task) {
       this.updating_task = true;
       this.new_task = task;
       this.task_index_to_update = index;
       this.button_text = 'Editar';
     },
+    /** 
+     * Update pending tasks in localStorage  
+     */
     updateTasks() {
       localStorage.setItem('pending-tasks', JSON.stringify(this.tasks_list));
     },
+    /** 
+     * Update completed tasks in localStorage 
+     */
     updateCompletedTasks() {
       localStorage.setItem('completed-tasks', JSON.stringify(this.completed_tasks));
     }
   },
+  /** 
+   * Initialize life cycle 
+   */
   mounted() {
     if (localStorage.getItem('pending-tasks')) {
       this.tasks_list = JSON.parse(localStorage.getItem('pending-tasks'));
@@ -141,10 +167,12 @@ export default {
     this.$store.dispatch('setTotalTasks', this.tasks_list.length);
   },
   watch: {
+    /** Watcher that updates total tasks in notifications and updates localStorage  */
     tasks_list() {
       this.$store.dispatch('setTotalTasks', this.tasks_list.length);
       this.updateTasks();
     },
+    /** Watcher which updates completed tasks in localStorage */
     completed_tasks() {
       this.updateCompletedTasks();
     }

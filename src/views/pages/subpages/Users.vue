@@ -37,10 +37,16 @@ export default {
       users_list: []
     };
   },
+  /** 
+   * Initialize life cycle 
+   */
   mounted() {
     this.getUsersList();
   },
   methods: {
+    /** 
+     * Returns the list of users from Fake JSON API  
+     */
     getUsersList() {
       mainService.usersList()
         .then(res => {

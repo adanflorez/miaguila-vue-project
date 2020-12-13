@@ -6,7 +6,6 @@ import auth from '@/auth/authService';
 Vue.use(VueRouter);
 
 const routes = [
-
   {
     path: '/login',
     name: 'Login',
@@ -16,6 +15,9 @@ const routes = [
     path: '',
     component: () => import('../views/pages/Main.vue'),
     children: [
+      // =============================================================================
+      // PAGES
+      // =============================================================================
       {
         path: '/',
         redirect: '/inicio',
@@ -44,6 +46,13 @@ const routes = [
           authRequired: true,
         },
       },
+      /** 
+       * Redirect to /login or if user is logged in redirect to /inicio 
+       */
+      {
+        path: '*',
+        redirect: '/login',
+      },
     ],
   },
 ];
@@ -54,9 +63,7 @@ const router = new VueRouter({
   routes,
 });
 
-const routes_after_login = [
-  '/login',
-];
+const routes_after_login = ['/login'];
 
 router.beforeEach((to, from, next) => {
   // If auth required, check login. If login fails redirect to login page
@@ -66,7 +73,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (auth.isAuthenticated() && routes_after_login.includes(to.path)) {
-      router.push({ path: '/inicio'});
+      router.push({ path: '/inicio' });
     }
   }
 

@@ -112,11 +112,18 @@ export default {
     };
   },
   computed: {
+    /** 
+     * @returns {Boolean} if the form is valid 
+     */
     validateForm() {
       return !this.errors.any() && this.user.email != "" && this.user.password != "";
     }
   },
   methods: {
+    /**
+     * Login function that uses a setTimeOut to simulate real login, 
+     * uses Vuex from auth module to save credentials in localStorage and store
+     */
     login() {
       this.loading = true;
       // setTimeout to simulate a real login

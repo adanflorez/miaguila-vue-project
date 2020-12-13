@@ -18,7 +18,9 @@ export default new Vuex.Store({
     total_tasks: 0,
   },
   mutations: {
-    // Updates user info in state and localstorage
+    /**  
+     * Updates user info in state and localstorage 
+     */
     UPDATE_USER_INFO(state, payload) {
       // Get Data localStorage
       let userInfo =
@@ -41,6 +43,9 @@ export default new Vuex.Store({
       // JUST IN CASE: Access token parameter for valid requests
       // axios.defaults.headers.common["Authorization"] = "Bearer " + state.accessToken;
     },
+    /** 
+     * Update total tasks 
+     */
     UPDATE_TOTAL_TASKS(state, payload) {
       state.total_tasks = payload;
     },

@@ -70,11 +70,19 @@ export default {
       ]
     };
   },
+  /** Initialize life cycle */
   mounted() {
     this.onResize();
     window.addEventListener('resize', this.onResize);
   },
   methods: {
+    /**
+     * @namespace onItemClick
+     * Detect click, used to logout
+     * @param {Event} event - Event occurred.
+     * @param {Object} item - Object with information about the item that triggered the function.
+     * @param {Any} node - Node from the DOM
+     */
     onItemClick(event, item, node) {
       if (item.title === 'Salir') {
         this.$swal(
@@ -94,6 +102,9 @@ export default {
         });
       }
     },
+    /** 
+     * Detect changes in screen dimensions  
+     */
     onResize() {
       if (window.innerWidth <= 991) {
         this.isOnMobile = true;
@@ -103,12 +114,18 @@ export default {
         this.collapsed = false;
       }
     },
+    /** 
+     * Allows you to log out  
+     */
     logout() {
       localStorage.removeItem('userInfo');
       this.$router.push("/login");
     }
   },
   computed: {
+    /**
+     * @returns {Boolean} isIdle
+     */
     isIdle() {
       return this.$store.state.idleVue.isIdle;
     }
