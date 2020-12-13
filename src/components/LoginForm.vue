@@ -38,21 +38,38 @@
                     >
                   </div>
                   <div class="form-group mb-4">
-                    <label for="password" class="sr-only">Contraseña</label>
-                    <input
-                      v-validate="{
-                        required: true,
-                        min: 8,
-                        regex: password_pattern,
-                      }"
-                      type="password"
-                      name="password"
-                      class="form-control"
-                      placeholder="***********"
-                      v-model="user.password"
-                      data-password
-                      required
-                    />
+                    <div class="input-group">
+                      <label for="password" class="sr-only">Contraseña</label>
+                      <input
+                        v-validate="{
+                          required: true,
+                          min: 8,
+                          regex: password_pattern,
+                        }"
+                        :type="password_input_type"
+                        name="password"
+                        class="form-control"
+                        placeholder="***********"
+                        v-model="user.password"
+                        data-password
+                        required
+                      />
+                      <div class="input-group-append">
+                        <span
+                          class="input-group-text bg-white cursor-pointer"
+                          id="basic-addon2"
+                          @click="changePasswordInputType"
+                        >
+                          <i
+                            class="fas"
+                            :class="{
+                              'fa-eye': show_password,
+                              'fa-eye-slash': !show_password,
+                            }"
+                          ></i
+                        ></span>
+                      </div>
+                    </div>
                     <small
                       id="vee-error"
                       class="text-danger text-xs"
@@ -108,7 +125,9 @@ export default {
       },
       password_pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z].{7,}/,
       loading: false,
-      error_login: false
+      error_login: false,
+      password_input_type: 'password',
+      show_password: 'true'
     };
   },
   computed: {
@@ -141,7 +160,25 @@ export default {
             this.error_login = true;
           });
       }, 2000);
-
+    },
+    /**
+     * This function is used to show or hide the password
+     */
+    changePasswordInputType() {
+      switch (this.password_input_type) {
+        case 'text':
+          this.password_input_type = 'password';
+          this.show_password = true;
+          break;
+        case 'password':
+          this.password_input_type = 'text';
+          this.show_password = false;
+          break;
+        default:
+          this.password_input_type = 'password';
+          this.show_password = true;
+          break;
+      }
     }
   }
 };
