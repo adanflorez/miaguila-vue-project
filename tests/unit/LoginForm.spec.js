@@ -1,5 +1,7 @@
+jest.useFakeTimers();
+
 import flushPromises from 'flush-promises';
-import { mount, createLocalVue } from '@vue/test-utils';
+import { mount, createLocalVue, shallowMount } from '@vue/test-utils';
 import LoginForm from '@/components/LoginForm.vue';
 
 const Vue = createLocalVue();
@@ -10,7 +12,6 @@ Vue.use(VeeValidate);
 Validator.localize('es', es);
 
 describe('LoginForm.vue', () => {
-  
   it('Check required message if email input is empty', async () => {
     const wrapper = mount(LoginForm, { sync: false, localVue: Vue });
     const error = wrapper.find('.vee-error');
@@ -102,5 +103,69 @@ describe('LoginForm.vue', () => {
     expect(login).toHaveBeenCalled();
   });
 
-  
+  it('should error credentials message', () => {
+    const wrapper = mount(LoginForm, {
+      sync: false,
+      localVue: Vue,
+      data() {
+        return {
+          error_login: true,
+        };
+      },
+    });
+
+    expect(wrapper.find('.alert-danger').exists()).toBeTruthy();
+  });
+
+  it('Credentials error message should not be displayed', () => {
+    const wrapper = mount(LoginForm, {
+      sync: false,
+      localVue: Vue,
+      data() {
+        return {
+          error_login: false,
+        };
+      },
+    });
+
+    expect(wrapper.find('.alert-danger').exists()).toBeFalsy();
+  });
+
+  it('Check placeholder in email input', async () => {
+    const wrapper = shallowMount(LoginForm, { sync: false, localVue: Vue });
+    const placeholder = wrapper
+      .find('[data-username]')
+      .attributes('placeholder');
+    await flushPromises();
+
+    expect(placeholder).toBe('Correo');
+  });
+
+  it('Check placeholder in password input', async () => {
+    const wrapper = shallowMount(LoginForm, { sync: false, localVue: Vue });
+    const placeholder = wrapper
+      .find('[data-password]')
+      .attributes('placeholder');
+    await flushPromises();
+
+    expect(placeholder).toBe('***********');
+  });
+
+  it('Button trigger login loading true', () => {
+    const wrapper = mount(LoginForm, { sync: false, localVue: Vue });
+    wrapper.vm.login();
+    /* expect(payload).toStrictEqual({
+      email: 'sdsdfs',
+      password: 'hhhhh',
+    }); */
+    expect(wrapper.vm.loading).toBeTruthy();
+    expect(setTimeout).toHaveBeenCalledTimes(1);
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 2000);
+  });
+
+  /*   it('settimeout', () => {
+    const wrapper = mount(LoginForm, { sync: false, localVue: Vue });
+    wrapper.vm.login();
+    
+  }); */
 });

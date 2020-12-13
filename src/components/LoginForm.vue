@@ -120,22 +120,20 @@ export default {
     login() {
       this.loading = true;
       // setTimeout to simulate a real login
-      //setTimeout(() => {
-      this.loading = false;
-      const payload = {
-        email: this.user.email,
-        password: this.user.password
-      };
-      this.$store
-        .dispatch("auth/login", payload)
-        .then(() => {
-          this.$router.push('/inicio');
-        })
-        .catch(error => {
-          console.error(error);
-          this.error_login = true;
-        });
-      // }, 2000);
+      setTimeout(() => {
+        this.loading = false;
+        this.$store
+          .dispatch("auth/login", {
+            email: this.user.email,
+            password: this.user.password
+          })
+          .then(() => {
+            this.$router.push('/inicio');
+          })
+          .catch(error => {
+            this.error_login = true;
+          });
+      }, 2000);
 
     }
   }
