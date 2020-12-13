@@ -65,27 +65,19 @@
         <div v-else class="jumbotron">Agrega tareas a la lista...</div>
       </div>
       <div class="col-lg-6">
-        <div class="card" v-if="completed_tasks.length">
-          <div class="card-body">
-            <h3 class="card-title">Tareas completadas</h3>
-            <template>
-              <div v-for="(task, index) of completed_tasks" :key="index">
-                <div class="d-flex align-items-center">
-                  <i class="fas fa-check-double text-success mr-3"></i
-                  >{{ task }}
-                </div>
-              </div>
-            </template>
-          </div>
-        </div>
+        <completed-tasks :tasks="completed_tasks" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CompletedTasks from '../../../components/CompletedTasks.vue';
 
 export default {
+  components: {
+    CompletedTasks
+  },
   data() {
     return {
       new_task: '',
@@ -167,12 +159,16 @@ export default {
     this.$store.dispatch('setTotalTasks', this.tasks_list.length);
   },
   watch: {
-    /** Watcher that updates total tasks in notifications and updates localStorage  */
+    /** 
+     * Watcher that updates total tasks in notifications and updates localStorage  
+     */
     tasks_list() {
       this.$store.dispatch('setTotalTasks', this.tasks_list.length);
       this.updateTasks();
     },
-    /** Watcher which updates completed tasks in localStorage */
+    /** 
+     * Watcher which updates completed tasks in localStorage 
+     */
     completed_tasks() {
       this.updateCompletedTasks();
     }
