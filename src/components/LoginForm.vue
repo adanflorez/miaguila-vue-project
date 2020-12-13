@@ -43,7 +43,7 @@
                       <input
                         v-validate="{
                           required: true,
-                          min: 8,
+                          min: 7,
                           regex: password_pattern,
                         }"
                         :type="password_input_type"

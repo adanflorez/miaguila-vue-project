@@ -50,7 +50,7 @@ describe('LoginForm.vue', () => {
     expect(error.text()).toBe('El campo password es obligatorio');
   });
 
-  it('check error message if password is not 8 or more characters', async () => {
+  it('check error message if password is not 7 or more characters', async () => {
     const wrapper = mount(LoginForm, { sync: false, localVue: Vue });
     const error = wrapper.find('#vee-error');
 
@@ -60,7 +60,7 @@ describe('LoginForm.vue', () => {
     await flushPromises();
 
     expect(error.text()).toBe(
-      'El campo password debe tener al menos 8 caracteres'
+      'El campo password debe tener al menos 7 caracteres'
     );
   });
 
