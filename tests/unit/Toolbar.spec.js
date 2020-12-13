@@ -6,11 +6,10 @@ const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-describe('Toolbar.spec.js', () => {
+describe('Toolbar.vue', () => {
   let getters;
   let store;
   let $route;
-  let user;
 
   beforeEach(() => {
     getters = {
