@@ -27,7 +27,7 @@ describe('Tasks.vue', () => {
   });
 
   it('EditTask', () => {
-    wrapper.vm.editTask(0, 'Pruebas unitarias');
+    wrapper.vm.editTask({ index: 0, task: 'Pruebas unitarias' });
     wrapper.setData({ new_task: 'Tarea tres' });
     wrapper.vm.addTask();
     expect(wrapper.vm.tasks_list).toStrictEqual(['Tarea tres']);
@@ -39,7 +39,7 @@ describe('Tasks.vue', () => {
   });
 
   it('moveTaskToComplete', () => {
-    wrapper.vm.moveTaskToComplete(0, 'Pruebas unitarias');
+    wrapper.vm.moveTaskToComplete({ index: 0, task: 'Pruebas unitarias' });
     expect(wrapper.vm.tasks_list).toStrictEqual([]);
     expect(wrapper.vm.completed_tasks).toStrictEqual(['Pruebas unitarias']);
   });

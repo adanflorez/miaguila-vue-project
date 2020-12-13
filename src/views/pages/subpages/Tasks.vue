@@ -35,32 +35,24 @@
               ></i>
             </div>
           </div>
-          <div class="card">
-            <div class="card-body">
-              <div v-for="(task, index) of tasks_list" :key="index">
-                <hr v-if="index > 0" />
-                <div class="mw-100">
-                  <span class="text-sm">{{ task }}</span>
-                  <div class="d-flex">
-                    <div class="ml-auto">
-                      <i
-                        class="far fa-check-circle text-success mr-2 cursor-pointer"
-                        @click="moveTaskToComplete(index, task)"
-                      ></i>
-                      <i
-                        class="far fa-edit text-warning mr-2 cursor-pointer"
-                        @click="editTask(index, task)"
-                      ></i>
-                      <i
-                        class="fas fa-trash text-danger cursor-pointer"
-                        @click="deleteTask(index)"
-                      ></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <pending-tasks
+            :tasks="tasks_list"
+            @task-to-move="
+              (e) => {
+                moveTaskToComplete(e);
+              }
+            "
+            @delete-task="
+              (e) => {
+                deleteTask(e);
+              }
+            "
+            @edit-task="
+              (e) => {
+                editTask(e);
+              }
+            "
+          />
         </template>
         <div v-else class="jumbotron">Agrega tareas a la lista...</div>
       </div>
@@ -73,10 +65,12 @@
 
 <script>
 import CompletedTasks from '../../../components/CompletedTasks.vue';
+import PendingTasks from '../../../components/PendingTasks.vue';
 
 export default {
   components: {
-    CompletedTasks
+    CompletedTasks,
+    PendingTasks
   },
   data() {
     return {
@@ -118,16 +112,16 @@ export default {
      * @param {Number} index - Task position in array 
      * @param {String} task - Task
      */
-    moveTaskToComplete(index, task) {
-      this.completed_tasks.push(task);
-      this.deleteTask(index);
+    moveTaskToComplete(e) {
+      this.completed_tasks.push(e.task);
+      this.deleteTask(e.index);
     },
     /** Prepare the task to edit
      * 
      * @param {Number} index - Task position in array 
      * @param {String} task - Task
      */
-    editTask(index, task) {
+    editTask({ index, task }) {
       this.updating_task = true;
       this.new_task = task;
       this.task_index_to_update = index;
