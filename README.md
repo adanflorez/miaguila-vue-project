@@ -1,4 +1,4 @@
-# Miaguila Vue Project
+# Mi Águila Vue Project
 # Descripción general
 Este es proyecto hecho en [Vue.js](https://vuejs.org/v2/guide/) que basicamente tiene un modulo de autenticación en donde se solicita un correo y una contraseña para poder ingrear; una vez ingrese, el usuario será redirigido a un nuevo modulo de usuario autenticado.
 
