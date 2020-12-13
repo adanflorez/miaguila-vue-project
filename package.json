@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "test:coverage": "vue-cli-service test:unit --coverage"
+    "test:coverage": "vue-cli-service test:unit --coverage",
+    "start": "lite-server --baseDir='dist'"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -28,6 +29,7 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/test-utils": "^1.0.3",
     "flush-promises": "^1.0.2",
+    "lite-server": "^2.6.1",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
