@@ -112,9 +112,9 @@ export default {
      * @param {Number} index - Task position in array 
      * @param {String} task - Task
      */
-    moveTaskToComplete(e) {
-      this.completed_tasks.push(e.task);
-      this.deleteTask(e.index);
+    moveTaskToComplete({ index, task }) {
+      this.completed_tasks.push(task);
+      this.deleteTask(index);
     },
     /** Prepare the task to edit
      * 
