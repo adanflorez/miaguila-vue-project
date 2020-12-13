@@ -1,6 +1,6 @@
 # Miaguila Vue Project
 # Descripción general
-Este es un que basicamente tiene un modulo de autenticación en donde se solicita un correo y una contraseña para poder ingrear; una vez ingrese, el usuario será redirigido a un nuevo modulo de usuario autenticado.
+Este es proyecto hecho en [Vue.js](https://vuejs.org/v2/guide/) que basicamente tiene un modulo de autenticación en donde se solicita un correo y una contraseña para poder ingrear; una vez ingrese, el usuario será redirigido a un nuevo modulo de usuario autenticado.
 
 # Descripción específica
 
@@ -20,8 +20,7 @@ Cuando el usuario inicia sesión ingresará a este modulo el cual se divide en t
 Logo de la empresa, **Inicio** ,**Usuarios**, **Tareas**, **Salir** lanza alerta para confirmar si desea cerrar sesión, **Configuración** no tiene acción.
 
 ### Toolbar
-Lado izquierdo: 
-1. el **nombre** de la vista actual. 
+Lado izquierdo: el **nombre** de la vista actual. 
 
 En la parte derecha se encuentran: 
 **Lupa**, **Campana de notificaciones**: total de _tareas pendientes_ y direcciona a la vista de tareas. **Correo** del usuario. **Icono de usuario** foto de perfíl del usuario o icono por defecto.
