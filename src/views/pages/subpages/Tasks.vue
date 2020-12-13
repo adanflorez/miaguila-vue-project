@@ -100,16 +100,16 @@ export default {
     addTask() {
       if (!this.updating_task) {
         this.tasks_list.push(this.new_task);
-        this.new_task = '';
       } else {
         this.tasks_list[this.task_index_to_update] = this.new_task;
         this.tasks_list.push('');
         this.tasks_list.pop();
         this.updateTasks();
-        this.new_task = '';
         this.button_text = '+ Agregar';
         this.updating_task = false;
       }
+      this.new_task = '';
+
     },
     deleteTask(index) {
       this.tasks_list.splice(index, 1);
@@ -131,7 +131,7 @@ export default {
       localStorage.setItem('completed-tasks', JSON.stringify(this.completed_tasks));
     }
   },
-  created() {
+  mounted() {
     if (localStorage.getItem('pending-tasks')) {
       this.tasks_list = JSON.parse(localStorage.getItem('pending-tasks'));
     }
