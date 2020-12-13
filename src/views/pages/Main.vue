@@ -6,7 +6,6 @@
       <sidebar-menu
         :menu="menu"
         :collapsed="collapsed"
-        @toggle-collapse="onToggleCollapse"
         @item-click="onItemClick"
         :width="'255px'"
         :disableHover="true"
@@ -23,14 +22,14 @@
                 src="@/assets/img/logo.svg"
                 alt=""
               />
-              <span>Mi águila</span>
+              <span id="title">Mi águila</span>
             </div>
           </div>
         </span>
         <span slot="footer">
           <div class="vsm--footer cursor-pointer">
             <i class="vsm--icon fas fa-cog" aria-hidden="true"> </i>
-            <span>Configuración</span>
+            <span id="configuration">Configuración</span>
           </div>
         </span>
       </sidebar-menu>
@@ -76,9 +75,6 @@ export default {
     window.addEventListener('resize', this.onResize);
   },
   methods: {
-    onToggleCollapse(collapsed) {
-      this.collapsed = collapsed;
-    },
     onItemClick(event, item, node) {
       if (item.title === 'Salir') {
         this.$swal(
@@ -109,7 +105,7 @@ export default {
     },
     logout() {
       localStorage.removeItem('userInfo');
-      window.location.href = "/";
+      this.$router.push("/login");
     }
   },
   computed: {
