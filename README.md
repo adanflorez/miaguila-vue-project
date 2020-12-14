@@ -64,6 +64,11 @@ yarn install
 yarn serve
 ```
 
+### Compila y recarga instantanea para modo staging
+```
+yarn serve-staging
+```
+
 ### Compilación del proyecto
 ```
 yarn build
