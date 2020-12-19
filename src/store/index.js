@@ -4,8 +4,7 @@ Vue.use(Vuex);
 
 import moduleAuth from './auth/moduleAuth.js';
 
-const userInfoLocalStorage =
-  JSON.parse(localStorage.getItem('userInfo')) || null;
+const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || null;
 
 const getUserInfo = () => {
   return userInfoLocalStorage;
