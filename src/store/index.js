@@ -1,10 +1,11 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 Vue.use(Vuex);
 
-import moduleAuth from './auth/moduleAuth.js';
+import moduleAuth from "./auth/moduleAuth.js";
 
-const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || null;
+const userInfoLocalStorage =
+  JSON.parse(localStorage.getItem("userInfo")) || null;
 
 const getUserInfo = () => {
   return userInfoLocalStorage;
@@ -13,17 +14,17 @@ const getUserInfo = () => {
 export default new Vuex.Store({
   state: {
     AppActiveUser: getUserInfo() || {},
-    accesToken: '', // necessary to verify a valid user
+    accesToken: "", // necessary to verify a valid user
     total_tasks: 0,
   },
   mutations: {
-    /**  
-     * Updates user info in state and localstorage 
+    /**
+     * Updates user info in state and localstorage
      */
     UPDATE_USER_INFO(state, payload) {
       // Get Data localStorage
       let userInfo =
-        JSON.parse(localStorage.getItem('userInfo')) || state.AppActiveUser;
+        JSON.parse(localStorage.getItem("userInfo")) || state.AppActiveUser;
 
       for (const property of Object.keys(payload)) {
         if (payload[property] != null) {
@@ -35,15 +36,15 @@ export default new Vuex.Store({
       }
 
       // Store data in localStorage
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
     },
     UPDATE_USER_ACCESS_TOKEN(state, payload) {
       state.accesToken = payload;
       // JUST IN CASE: Access token parameter for valid requests
       // axios.defaults.headers.common["Authorization"] = "Bearer " + state.accessToken;
     },
-    /** 
-     * Update total tasks 
+    /**
+     * Update total tasks
      */
     UPDATE_TOTAL_TASKS(state, payload) {
       state.total_tasks = payload;
@@ -51,7 +52,7 @@ export default new Vuex.Store({
   },
   actions: {
     setTotalTasks({ commit }, payload) {
-      commit('UPDATE_TOTAL_TASKS', payload);
+      commit("UPDATE_TOTAL_TASKS", payload);
     },
   },
   getters: {
